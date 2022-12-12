@@ -1,12 +1,7 @@
-import { Router, Request, Response } from "express";
-import { Todo, Todos, TodoWithId } from "./todo.model";
-
+import { Router } from "express";
+import * as todoHandlers from "./todos.handlers";
 const router = Router();
 
-router.get("/", async (req: Request, res: Response<TodoWithId[]>) => {
-  const results = await Todos.find();
-  const todos = await results.toArray();
-  res.json(todos);
-});
+router.get("/", todoHandlers.findAll);
 
 export default router;
