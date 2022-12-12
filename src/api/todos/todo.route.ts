@@ -1,15 +1,12 @@
 import { Router, Request, Response } from "express";
-import Todo from "./todo.model";
+import { Todo, Todos, TodoWithId } from "./todo.model";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response<Todo[]>) => {
-  res.json([
-    {
-      exercise: "Run 100 meters / day",
-      done: false,
-    },
-  ]);
+router.get("/", async (req: Request, res: Response<TodoWithId[]>) => {
+  const results = await Todos.find();
+  const todos = await results.toArray();
+  res.json(todos);
 });
 
 export default router;
